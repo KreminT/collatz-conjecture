@@ -11,6 +11,7 @@ namespace CollatzConjecture.Math.Test
             Assert.True("4320943828946503234892342".IsNumeric());
             Assert.False("432u9884329".IsNumeric());
             Assert.False("4327843728473+32432".IsNumeric());
+            Assert.False("4327843728473 32432".IsNumeric());
         }
 
         [Fact]
