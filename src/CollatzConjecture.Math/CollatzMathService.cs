@@ -12,14 +12,14 @@ namespace CollatzConjecture.Math
             string result = string.Empty;
             int residual = 0;
             int digit = 0;
-            for (int i = 0; i < number.Length; i++)
+            foreach(var item in number)
             {
                 if (residual > 0)
-                    digit = int.Parse($"{residual}{number[i]}");
+                    digit = int.Parse($"{residual}{item}");
                 else if (digit > 0)
-                    digit = int.Parse($"{digit}{number[i]}");
+                    digit = int.Parse($"{digit}{item}");
                 else
-                    digit = int.Parse(number[i].ToString());
+                    digit = int.Parse(item.ToString());
                 if (digit < 2)
                 {
                     if (!string.IsNullOrEmpty(result))
@@ -36,12 +36,13 @@ namespace CollatzConjecture.Math
 
         public string Math3X(string number)
         {
+            int partLength= 8;
             if (!number.IsNumeric())
                 throw new NotNumericException(number);
             number = number.Replace(" ", "");
             string result = string.Empty;
             int prevValue = 0;
-            List<string> numbers = number.SplitNumericToParts(3);
+            List<string> numbers = number.SplitNumericToParts(partLength);
             for (int i = numbers.Count - 1; i >= 0; i--)
             {
                 int value = int.Parse(numbers[i]) * 3;
@@ -49,7 +50,7 @@ namespace CollatzConjecture.Math
                     value += 1;
                 value += prevValue;
                 string val = value.ToString();
-                val = val.AddZeros(3);
+                val = val.AddZeros(numbers[i].Length);
                 if (val.Length > numbers[i].Length)
                     prevValue = int.Parse(val.Substring(0, val.Length - numbers[i].Length));
                 else
