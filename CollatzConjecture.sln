@@ -5,6 +5,14 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CollatzConjecture", "src\CollatzConjecture\CollatzConjecture.csproj", "{616644C7-FC54-45B8-87C8-950E6EE23EF7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollatzConjecture.Math", "src\CollatzConjecture.Math\CollatzConjecture.Math.csproj", "{7D0A6844-08D8-4EF1-8F7F-482718FB688B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D6640C83-9570-4CF8-AA35-C1BF48228000}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{18D1D258-75C5-4301-911C-9BFB8B9451FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollatzConjecture.Math.Test", "test\CollatzConjecture.Math.Test\CollatzConjecture.Math.Test.csproj", "{4CBE1BC6-7747-4215-B253-DC27A1CF3161}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +23,22 @@ Global
 		{616644C7-FC54-45B8-87C8-950E6EE23EF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{616644C7-FC54-45B8-87C8-950E6EE23EF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{616644C7-FC54-45B8-87C8-950E6EE23EF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D0A6844-08D8-4EF1-8F7F-482718FB688B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D0A6844-08D8-4EF1-8F7F-482718FB688B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D0A6844-08D8-4EF1-8F7F-482718FB688B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D0A6844-08D8-4EF1-8F7F-482718FB688B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CBE1BC6-7747-4215-B253-DC27A1CF3161}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CBE1BC6-7747-4215-B253-DC27A1CF3161}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CBE1BC6-7747-4215-B253-DC27A1CF3161}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CBE1BC6-7747-4215-B253-DC27A1CF3161}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{616644C7-FC54-45B8-87C8-950E6EE23EF7} = {D6640C83-9570-4CF8-AA35-C1BF48228000}
+		{7D0A6844-08D8-4EF1-8F7F-482718FB688B} = {D6640C83-9570-4CF8-AA35-C1BF48228000}
+		{4CBE1BC6-7747-4215-B253-DC27A1CF3161} = {18D1D258-75C5-4301-911C-9BFB8B9451FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4EC73905-D64D-42B5-A5F2-6494060B7DE9}
