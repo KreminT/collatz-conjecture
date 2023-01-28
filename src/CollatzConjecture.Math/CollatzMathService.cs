@@ -10,33 +10,27 @@ namespace CollatzConjecture.Math
                 throw new NotNumericException(number);
             number = number.Replace(" ", "");
             string result = string.Empty;
-            int residual = 0;
-            int digit = 0;
-            foreach(var item in number)
+            var numbers = number.SplitNumericToParts(8, true, true);
+            foreach (var item in numbers)
             {
-                if (residual > 0)
-                    digit = int.Parse($"{residual}{item}");
-                else if (digit > 0)
-                    digit = int.Parse($"{digit}{item}");
-                else
-                    digit = int.Parse(item.ToString());
-                if (digit < 2)
+                int digit = int.Parse(item);
+                string res = string.Empty;
+                if (digit > 1)
                 {
-                    if (!string.IsNullOrEmpty(result))
-                        result += "0";
-                    continue;
+                    res = ((int)digit / 2).ToString();
+                    if (item[0] == '0')
+                        res = res.AddZerosIfExists(item);
                 }
-                int value = digit / 2;
-                result += value.ToString();
-                residual = digit % 2;
-                digit = 0;
+                else
+                    res = res.AddZeros(item.Length);
+                result += res;
             }
             return result;
         }
 
         public string Math3X(string number)
         {
-            int partLength= 8;
+            int partLength = 8;
             if (!number.IsNumeric())
                 throw new NotNumericException(number);
             number = number.Replace(" ", "");
