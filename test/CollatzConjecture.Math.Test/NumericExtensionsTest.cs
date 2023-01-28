@@ -54,5 +54,23 @@ namespace CollatzConjecture.Math.Test
             var parts = number.SplitNumericToParts(3);
             Assert.Empty(parts);
         }
+
+        [Fact]
+        public void IsEvenTests()
+        {           
+            Assert.True("243278473856487395764938".IsEven());
+            Assert.True("24343278475984976578926547265798425948726754892".IsEven());
+            Assert.False("24343278475984976578926547265798425948726754893".IsEven());
+            Assert.False("23".IsEven());
+            Assert.True("32".IsEven());
+        }
+
+        [Fact]
+        public void AddZerosTests()
+        {
+            Assert.Equal("001", "1".AddZeros(3));
+            Assert.Equal("011", "11".AddZeros(3));
+            Assert.Equal("111", "111".AddZeros(3));
+        }
     }
 }

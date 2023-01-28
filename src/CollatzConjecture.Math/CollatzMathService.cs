@@ -21,7 +21,11 @@ namespace CollatzConjecture.Math
                 else
                     digit = int.Parse(number[i].ToString());
                 if (digit < 2)
+                {
+                    if (!string.IsNullOrEmpty(result))
+                        result += "0";
                     continue;
+                }
                 int value = digit / 2;
                 result += value.ToString();
                 residual = digit % 2;
@@ -45,6 +49,7 @@ namespace CollatzConjecture.Math
                     value += 1;
                 value += prevValue;
                 string val = value.ToString();
+                val = val.AddZeros(3);
                 if (val.Length > numbers[i].Length)
                     prevValue = int.Parse(val.Substring(0, val.Length - numbers[i].Length));
                 else
