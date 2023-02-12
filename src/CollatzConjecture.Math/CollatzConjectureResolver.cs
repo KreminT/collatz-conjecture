@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CollatzConjecture.Math.IO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,20 @@ namespace CollatzConjecture.Math
                 result.Add(number);
             }
             return result;
+        }
+
+        public string ResolveConjecture(string number, IResultProcessor processor)
+        {
+            processor.Write(number);
+            while (number != "1")
+            {
+                if (number.IsEven())
+                    number = math.DivisionBy2(number);
+                else
+                    number = math.Math3X(number);
+                processor.Write(number);
+            }
+            return processor.GetFileName();
         }
     }
 }
