@@ -20,9 +20,16 @@ namespace CollatzConjecture.Controllers
         }
 
         [HttpPost, Route("resolve")]
-        public string Resolve([FromBody] string value)
+        public ActionResult Resolve([FromBody] string value)
         {
-            return resolver.ResolveConjecture(value, resultProcessor);
+            resolver.ResolveConjecture(value, resultProcessor);
+            string fileName = Path.GetFileName(resultProcessor.GetFileName());
+            Stream stream = System.IO.File.OpenRead(resultProcessor.GetFileName());
+
+            if (stream == null)
+                throw new BadHttpRequestException(value); // returns a NotFoundResult with Status404NotFound response.
+
+            return File(stream, "application/octet-stream", fileName); // returns a FileStreamR
         }
 
         [HttpGet, Route("result")]
