@@ -27,7 +27,7 @@ namespace CollatzConjecture.Math
                     splitedLine = line.Substring(nextIndex, numbersInPart);
                 if (addOneToBegin && isPrevNotEven)
                     splitedLine = splitedLine.Insert(0, "1");
-                else if (addZero && splitedLine[0] == '1' && nextIndex != 0)
+                else if (addZero && (splitedLine[0] == '1' || (splitedLine[0] == '0' && splitedLine.Length>2 && splitedLine[1]=='1') ) && nextIndex != 0)
                     splitedLine = splitedLine.Insert(0, "0");
 
                 parts.Add(splitedLine);
@@ -60,10 +60,19 @@ namespace CollatzConjecture.Math
         }
         public static string AddZerosIfExists(this string number, string prevLine)
         {
-            foreach (var s in prevLine)
+            bool isPrevZero = true;
+            for(int i = 0; i < prevLine.Length; i++)
             {
-                if (s == '0')
+                if (prevLine[i] == '0')
+                {
+                    isPrevZero = true;
                     number = number.Insert(0, "0");
+                }
+                //else if (prevLine[i] == '1' && isPrevZero )
+                //{
+                //    isPrevZero = false;
+                //    number = number.Insert(0, "0");
+                //}
                 else
                     break;
             }
