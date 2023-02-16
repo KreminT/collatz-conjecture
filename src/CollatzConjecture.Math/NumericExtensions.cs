@@ -27,7 +27,7 @@ namespace CollatzConjecture.Math
                     splitedLine = line.Substring(nextIndex, numbersInPart);
                 if (addOneToBegin && isPrevNotEven)
                     splitedLine = splitedLine.Insert(0, "1");
-                else if (addZero && (splitedLine[0] == '1' || (splitedLine[0] == '0' && splitedLine.Length>2 && splitedLine[1]=='1') ) && nextIndex != 0)
+                else if (addZero && (splitedLine[0] == '1' || IsAddZero(splitedLine)) && nextIndex != 0)
                     splitedLine = splitedLine.Insert(0, "0");
 
                 parts.Add(splitedLine);
@@ -37,6 +37,23 @@ namespace CollatzConjecture.Math
                     break;
             }
             return parts;
+        }
+
+        private static bool IsAddZero(string line)
+        {
+            bool isAddZero = false;
+            for (int i = 0; i < line.Length; i++)
+            {
+                if (line[i].Equals('0'))
+                {
+                    isAddZero = true;
+                    continue;
+                }
+                if (line[i].Equals('1') && isAddZero && line.Length > i + 1)
+                    return true;
+                return false;
+            }
+            return false;
         }
 
         private static HashSet<string> EvenNumbers = new HashSet<string>()
@@ -61,7 +78,7 @@ namespace CollatzConjecture.Math
         public static string AddZerosIfExists(this string number, string prevLine)
         {
             bool isPrevZero = true;
-            for(int i = 0; i < prevLine.Length; i++)
+            for (int i = 0; i < prevLine.Length; i++)
             {
                 if (prevLine[i] == '0')
                 {
