@@ -32,6 +32,8 @@ namespace CollatzConjecture.Math.Test
             Assert.Equal("374316323991632369632368", mathService.DivisionBy2("748632647983264739264736"));
             Assert.Equal("500000001", mathService.DivisionBy2("1000000002"));
             Assert.Equal("500000000", mathService.DivisionBy2("1000000000"));
+            Assert.Equal("50000000005", mathService.DivisionBy2("100000000010"));
+            Assert.Equal("5000000000080", mathService.DivisionBy2("10000000000160"));
             Assert.Equal("38525293007", mathService.DivisionBy2("77050586014"));
             Assert.Equal("131796800270", mathService.DivisionBy2("263593600540"));
             
