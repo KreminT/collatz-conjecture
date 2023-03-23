@@ -32,11 +32,14 @@ namespace CollatzConjecture.Math.Test
             Assert.Equal("374316323991632369632368", mathService.DivisionBy2("748632647983264739264736"));
             Assert.Equal("500000001", mathService.DivisionBy2("1000000002"));
             Assert.Equal("500000000", mathService.DivisionBy2("1000000000"));
+            Assert.Equal("50000000005", mathService.DivisionBy2("100000000010"));
+            Assert.Equal("5000000000080", mathService.DivisionBy2("10000000000160"));
             Assert.Equal("38525293007", mathService.DivisionBy2("77050586014"));
             Assert.Equal("131796800270", mathService.DivisionBy2("263593600540"));
             
             Assert.Equal("9740716064", mathService.DivisionBy2("19481432128"));
             Assert.Equal("62241243421440", mathService.DivisionBy2("124482486842880"));
+            Assert.Equal("10297945115424262373772260355046372499888308303558093710749847117942468900074378413363334", mathService.DivisionBy2("20595890230848524747544520710092744999776616607116187421499694235884937800148756826726668"));
 
         }
 
