@@ -10,8 +10,6 @@ builder.Services.AddSingleton<ICollatzMathService, CollatzMathService>();
 builder.Services.AddSingleton<ICollatzConjectureResolver, CollatzConjectureResolver>();
 builder.Services.AddTransient<IResultProcessor, FileResultProcessor>();
 var app = builder.Build();
-app.UseSwagger();
-app.UseSwaggerUI();
 app.UseHttpsRedirection();
 app.UseRouting();
 string staticFolder = String.Empty;
@@ -34,6 +32,8 @@ if (!app.Environment.IsDevelopment())
 }
 else
 {
+    app.UseSwagger();
+    app.UseSwaggerUI();
     staticFolder = Path.Combine(builder.Environment.ContentRootPath, "../../../client/build");
     app.UseStaticFiles(new StaticFileOptions
     {
