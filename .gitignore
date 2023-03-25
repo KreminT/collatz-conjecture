@@ -26,3 +26,4 @@ yarn-error.log*
 .vs/
 service/src/CollatzConjecture/result/
 *.csproj.user
+/client/.idea
