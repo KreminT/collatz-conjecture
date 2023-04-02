@@ -4,7 +4,6 @@ namespace CollatzConjecture.Math.Resolvers;
 
 public class DivisionResolver : IMathResolver
 {
-    public string Result { get; private set; }
     public Task<string> Resolve(NumericPart item)
     {
         string res = string.Empty;
@@ -17,7 +16,6 @@ public class DivisionResolver : IMathResolver
         else
             res = res.AddZeros(item.ValueString.Length);
 
-        Result = res;
         return Task.FromResult(res);
     }
 
