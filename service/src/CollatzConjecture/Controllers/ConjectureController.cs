@@ -20,9 +20,9 @@ namespace CollatzConjecture.Controllers
         }
 
         [HttpPost, Route("resolve")]
-        public ActionResult Resolve([FromBody] string value)
+        public async Task<ActionResult> Resolve([FromBody] string value)
         {
-            resolver.ResolveConjecture(value, resultProcessor);
+            await resolver.ResolveConjecture(value, resultProcessor);
             string fileName = Path.GetFileName(resultProcessor.GetFileName());
             Stream stream = System.IO.File.OpenRead(resultProcessor.GetFileName());
 

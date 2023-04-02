@@ -2,7 +2,7 @@
 {
     public interface ICollatzMathService
     {
-        string Math3X(string number);
-        string DivisionBy2(string number);
+        Task<string> DivisionBy2(string number);
+        Task<string> Multiplication(string number, int multiplier);
     }
 }

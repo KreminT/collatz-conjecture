@@ -1,58 +1,49 @@
-﻿using CollatzConjecture.Math.Exception;
+﻿using CollatzConjecture.Math.Converters;
+using CollatzConjecture.Math.Exception;
+using CollatzConjecture.Math.Model;
+using CollatzConjecture.Math.Resolvers;
 
 namespace CollatzConjecture.Math
 {
     public class CollatzMathService : ICollatzMathService
     {
-        public string DivisionBy2(string number)
+        public async Task<string> DivisionBy2(string number)
         {
             if (!number.IsNumeric())
                 throw new NotNumericException(number);
             number = number.Replace(" ", "");
             string result = string.Empty;
-            var numbers = number.SplitNumericToParts(8, true, true);
-            foreach (var item in numbers)
+            var numbers = new DivisionConverter().ConvertToLongNumber(number, 8);
+            NumericPart? item = numbers.GetFirst();
+            IMathResolver resolver = new DivisionResolver();
+            while (item != null)
             {
-                int digit = int.Parse(item);
-                string res = string.Empty;
-                if (digit > 1)
-                {
-                    res = ((int)digit / 2).ToString();
-                    if (item[0] == '0')
-                        res = res.AddZerosIfExists(item);
-                }
-                else
-                    res = res.AddZeros(item.Length);
-                result += res;
+                result += (await resolver.Resolve(item)).Result;
+                item = item.Next;
             }
             return result;
         }
 
-        public string Math3X(string number)
+        public async Task<string> Multiplication(string number, int multiplier)
         {
             int partLength = 8;
             if (!number.IsNumeric())
                 throw new NotNumericException(number);
-            number = number.Replace(" ", "");
             string result = string.Empty;
             int prevValue = 0;
-            List<string> numbers = number.SplitNumericToParts(partLength);
-            for (int i = numbers.Count - 1; i >= 0; i--)
+            var longValue = new MultiplicationConverter().ConvertToLongNumber(number, partLength);
+            var item = longValue.GetLast();
+            MultiplicationMathResolver resolver = new MultiplicationMathResolver();
+            MathResult prevResult = null;
+            while (item != null)
             {
-                int value = int.Parse(numbers[i]) * 3;
-                if (i == numbers.Count - 1)
-                    value += 1;
-                value += prevValue;
-                string val = value.ToString();
-                val = val.AddZeros(numbers[i].Length);
-                if (val.Length > numbers[i].Length)
-                    prevValue = int.Parse(val.Substring(0, val.Length - numbers[i].Length));
+                var res = await resolver.Resolve(item, prevResult);
+                if (item.Prev == null)
+                    result = result.Insert(0, res.Result);
                 else
-                    prevValue = 0;
-                if (i == 0)
-                    result = result.Insert(0, val);
-                else
-                    result = result.Insert(0, val.Substring(val.Length - numbers[i].Length, numbers[i].Length));
+                    result = result.Insert(0, res.Result.Substring(res.Result.Length - item.ValueString.Length, item.ValueString.Length));
+                item = item.Prev;
+                prevResult = res;
             }
             return result;
         }

@@ -15,58 +15,6 @@ namespace CollatzConjecture.Math.Test
         }
 
         [Fact]
-        public void SplitNumericToPartsWithNotFullLastTest()
-        {
-            string number = "4564789";
-            var parts = number.SplitNumericToParts(3);
-            Assert.NotEmpty(parts);
-            Assert.Equal(3, parts.Count);
-            Assert.Equal("456", parts[0]);
-            Assert.Equal("478", parts[1]);
-            Assert.Equal("9", parts[2]);
-        }
-
-        [Fact]
-        public void SplitNumericToPartsWithFullLastTest()
-        {
-            string number = "456478";
-            var parts = number.SplitNumericToParts(3);
-            Assert.NotEmpty(parts);
-            Assert.Equal(2, parts.Count);
-            Assert.Equal("456", parts[0]);
-            Assert.Equal("478", parts[1]);
-        }
-
-        [Fact]
-        public void SplitNumericToPartsLineShorterThanPartTest()
-        {
-            string number = "45";
-            var parts = number.SplitNumericToParts(3);
-            Assert.NotEmpty(parts);
-            Assert.Single(parts);
-            Assert.Equal("45", parts[0]);
-        }
-
-        [Fact]
-        public void SplitNumericToPartsLineIsNullTest()
-        {
-            string number = null;
-            var parts = number.SplitNumericToParts(3);
-            Assert.Empty(parts);
-        }
-
-        [Fact]
-        public void SplitNumericToPartsWithAddOneToBeginTest()
-        {
-            string number = "21621621628";
-            var parts = number.SplitNumericToParts(8,true);
-            Assert.NotEmpty(parts);
-            Assert.Equal(2, parts.Count);
-            Assert.Equal("21621621", parts[0]);
-            Assert.Equal("1628", parts[1]);
-        }
-
-        [Fact]
         public void IsEvenTests()
         {           
             Assert.True("243278473856487395764938".IsEven());

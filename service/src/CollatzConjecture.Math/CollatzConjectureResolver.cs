@@ -16,30 +16,30 @@ namespace CollatzConjecture.Math
             this.math = math;
         }
 
-        public List<string> ResolveConjecture(string number)
+        public async Task<List<string>> ResolveConjecture(string number)
         {
             List<string> result = new List<string>();
             result.Add(number);
             while (number != "1")
             {
-                if(number.IsEven())
-                    number = math.DivisionBy2(number);
+                if (number.IsEven())
+                    number = await math.DivisionBy2(number);
                 else
-                    number = math.Math3X(number);
+                    number = await math.Multiplication(number, 3);
                 result.Add(number);
             }
             return result;
         }
 
-        public string ResolveConjecture(string number, IResultProcessor processor)
+        public async Task<string> ResolveConjecture(string number, IResultProcessor processor)
         {
             processor.Write(number);
             while (number != "1")
             {
                 if (number.IsEven())
-                    number = math.DivisionBy2(number);
+                    number = await math.DivisionBy2(number);
                 else
-                    number = math.Math3X(number);
+                    number = await math.Multiplication(number, 3);
                 processor.Write(number);
             }
             return processor.GetFileName();

@@ -16,9 +16,9 @@ namespace CollatzConjecture.Math.Test
         }
 
         [Fact]
-        public void ResolveTest()
+        public async Task ResolveTest()
         {
-            var result = _resolver.ResolveConjecture("43243243256");
+            var result = await _resolver.ResolveConjecture("43243243256");
             Assert.Equal(277, result.Count);
             Assert.Equal("24324324334", result[6]);
         }

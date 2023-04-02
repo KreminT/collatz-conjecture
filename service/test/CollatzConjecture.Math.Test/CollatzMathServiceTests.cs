@@ -6,54 +6,54 @@ namespace CollatzConjecture.Math.Test
     public class CollatzMathServiceTests
     {
         [Fact]
-        public void Math3XTest()
+        public async Task Math3XTest()
         {
             CollatzMathService mathService = new CollatzMathService();
 
-            Assert.Throws<NotNumericException>(() => mathService.Math3X("48,974,897"));
-            Assert.Equal("146924692", mathService.Math3X("48974897"));
-            Assert.Equal("13327297298229729730", mathService.Math3X("4442432432743243243"));
-            Assert.Equal("22458979439497942177942096", mathService.Math3X("7486326479832647392647365"));
-            Assert.Equal("99304", mathService.Math3X("33101"));
-            Assert.Equal("3000000004", mathService.Math3X("1000000001"));
+            Assert.ThrowsAsync<NotNumericException>(async () => await mathService.Multiplication("48,974,897", 3));
+            Assert.Equal("146924692", await mathService.Multiplication("48974897", 3));
+            Assert.Equal("13327297298229729730", await mathService.Multiplication("4442432432743243243", 3));
+            Assert.Equal("22458979439497942177942096", await mathService.Multiplication("7486326479832647392647365", 3));
+            Assert.Equal("99304", await mathService.Multiplication("33101", 3));
+            Assert.Equal("3000000004", await mathService.Multiplication("1000000001", 3));
 
         }
 
         [Fact]
-        public void DivisionBy2Test()
+        public async Task DivisionBy2Test()
         {
             CollatzMathService mathService = new CollatzMathService();
 
-            Assert.Throws<NotNumericException>(() => mathService.DivisionBy2("48,974,892"));
-            Assert.Equal("24487446", mathService.DivisionBy2("48974892"));
-            Assert.Equal("10810810814", mathService.DivisionBy2("21621621628"));
+            Assert.ThrowsAsync<NotNumericException>(async () => await mathService.DivisionBy2("48,974,892"));
+            Assert.Equal("24487446", await mathService.DivisionBy2("48974892"));
+            Assert.Equal("10810810814", await mathService.DivisionBy2("21621621628"));
 
-            Assert.Equal("2221216216371621622", mathService.DivisionBy2("4442432432743243244"));
-            Assert.Equal("374316323991632369632368", mathService.DivisionBy2("748632647983264739264736"));
-            Assert.Equal("500000001", mathService.DivisionBy2("1000000002"));
-            Assert.Equal("500000000", mathService.DivisionBy2("1000000000"));
-            Assert.Equal("50000000005", mathService.DivisionBy2("100000000010"));
-            Assert.Equal("5000000000080", mathService.DivisionBy2("10000000000160"));
-            Assert.Equal("38525293007", mathService.DivisionBy2("77050586014"));
-            Assert.Equal("131796800270", mathService.DivisionBy2("263593600540"));
-            
-            Assert.Equal("9740716064", mathService.DivisionBy2("19481432128"));
-            Assert.Equal("62241243421440", mathService.DivisionBy2("124482486842880"));
-            Assert.Equal("10297945115424262373772260355046372499888308303558093710749847117942468900074378413363334", mathService.DivisionBy2("20595890230848524747544520710092744999776616607116187421499694235884937800148756826726668"));
+            Assert.Equal("2221216216371621622", await mathService.DivisionBy2("4442432432743243244"));
+            Assert.Equal("374316323991632369632368", await mathService.DivisionBy2("748632647983264739264736"));
+            Assert.Equal("500000001", await mathService.DivisionBy2("1000000002"));
+            Assert.Equal("500000000", await mathService.DivisionBy2("1000000000"));
+            Assert.Equal("50000000005", await mathService.DivisionBy2("100000000010"));
+            Assert.Equal("5000000000080", await mathService.DivisionBy2("10000000000160"));
+            Assert.Equal("38525293007", await mathService.DivisionBy2("77050586014"));
+            Assert.Equal("131796800270", await mathService.DivisionBy2("263593600540"));
+
+            Assert.Equal("9740716064", await mathService.DivisionBy2("19481432128"));
+            Assert.Equal("62241243421440", await mathService.DivisionBy2("124482486842880"));
+            Assert.Equal("10297945115424262373772260355046372499888308303558093710749847117942468900074378413363334", await mathService.DivisionBy2("20595890230848524747544520710092744999776616607116187421499694235884937800148756826726668"));
 
         }
 
         [Fact]
-        public void LongDivisionTest()
+        public async Task LongDivisionTest()
         {
-            var result = new CollatzMathService().DivisionBy2(_testValue);
-           // Assert.Equal(_devisionResult, result);
+            var result = await new CollatzMathService().DivisionBy2(_testValue);
+            Assert.Equal(_devisionResult, result);
         }
 
         [Fact]
-        public void LongMath3XTest()
+        public async Task LongMath3XTest()
         {
-            var result = new CollatzMathService().Math3X(_testValue);
+            var result = await new CollatzMathService().Multiplication(_testValue, 3);
             Assert.Equal(_mathResult, result);
         }
 
