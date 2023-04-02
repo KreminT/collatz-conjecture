@@ -22,10 +22,10 @@ namespace CollatzConjecture.Math
             result.Add(number);
             while (number != "1")
             {
-                if(number.IsEven())
+                if (number.IsEven())
                     number = math.DivisionBy2(number);
                 else
-                    number = math.Math3X(number);
+                    number = math.Multiplication(number, 3);
                 result.Add(number);
             }
             return result;
@@ -39,7 +39,7 @@ namespace CollatzConjecture.Math
                 if (number.IsEven())
                     number = math.DivisionBy2(number);
                 else
-                    number = math.Math3X(number);
+                    number = math.Multiplication(number, 3);
                 processor.Write(number);
             }
             return processor.GetFileName();

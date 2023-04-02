@@ -9,6 +9,7 @@ public abstract class LongNumberConverter
         LongNumber longNumber = new LongNumber();
         if (string.IsNullOrEmpty(number))
             return longNumber;
+        number = number.Replace(" ", "");
         string line = String.Empty;
         int iteration = 0;
         foreach (var item in number)

@@ -10,12 +10,12 @@ namespace CollatzConjecture.Math.Test
         {
             CollatzMathService mathService = new CollatzMathService();
 
-            Assert.Throws<NotNumericException>(() => mathService.Math3X("48,974,897"));
-            Assert.Equal("146924692", mathService.Math3X("48974897"));
-            Assert.Equal("13327297298229729730", mathService.Math3X("4442432432743243243"));
-            Assert.Equal("22458979439497942177942096", mathService.Math3X("7486326479832647392647365"));
-            Assert.Equal("99304", mathService.Math3X("33101"));
-            Assert.Equal("3000000004", mathService.Math3X("1000000001"));
+            Assert.Throws<NotNumericException>(() => mathService.Multiplication("48,974,897",3));
+            Assert.Equal("146924692", mathService.Multiplication("48974897", 3));
+            Assert.Equal("13327297298229729730", mathService.Multiplication("4442432432743243243", 3));
+            Assert.Equal("22458979439497942177942096", mathService.Multiplication("7486326479832647392647365", 3));
+            Assert.Equal("99304", mathService.Multiplication("33101", 3));
+            Assert.Equal("3000000004", mathService.Multiplication("1000000001", 3));
 
         }
 
@@ -53,7 +53,7 @@ namespace CollatzConjecture.Math.Test
         [Fact]
         public void LongMath3XTest()
         {
-            var result = new CollatzMathService().Math3X(_testValue);
+            var result = new CollatzMathService().Multiplication(_testValue,3);
             Assert.Equal(_mathResult, result);
         }
 
