@@ -30,12 +30,10 @@ namespace CollatzConjecture.Math
         }
         public static string AddZerosIfExists(this string number, string prevLine)
         {
-            bool isPrevZero = true;
             for (int i = 0; i < prevLine.Length; i++)
             {
                 if (prevLine[i] == '0')
                 {
-                    isPrevZero = true;
                     number = number.Insert(0, "0");
                 }
                 else
