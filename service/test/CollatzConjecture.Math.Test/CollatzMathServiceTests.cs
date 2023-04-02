@@ -6,16 +6,16 @@ namespace CollatzConjecture.Math.Test
     public class CollatzMathServiceTests
     {
         [Fact]
-        public void Math3XTest()
+        public async Task Math3XTest()
         {
             CollatzMathService mathService = new CollatzMathService();
 
-            Assert.Throws<NotNumericException>(() => mathService.Multiplication("48,974,897", 3));
-            Assert.Equal("146924692", mathService.Multiplication("48974897", 3));
-            Assert.Equal("13327297298229729730", mathService.Multiplication("4442432432743243243", 3));
-            Assert.Equal("22458979439497942177942096", mathService.Multiplication("7486326479832647392647365", 3));
-            Assert.Equal("99304", mathService.Multiplication("33101", 3));
-            Assert.Equal("3000000004", mathService.Multiplication("1000000001", 3));
+            Assert.ThrowsAsync<NotNumericException>(async () => await mathService.Multiplication("48,974,897", 3));
+            Assert.Equal("146924692", await mathService.Multiplication("48974897", 3));
+            Assert.Equal("13327297298229729730", await mathService.Multiplication("4442432432743243243", 3));
+            Assert.Equal("22458979439497942177942096", await mathService.Multiplication("7486326479832647392647365", 3));
+            Assert.Equal("99304", await mathService.Multiplication("33101", 3));
+            Assert.Equal("3000000004", await mathService.Multiplication("1000000001", 3));
 
         }
 
@@ -44,16 +44,16 @@ namespace CollatzConjecture.Math.Test
         }
 
         [Fact]
-        public void LongDivisionTest()
+        public async Task LongDivisionTest()
         {
-            var result = new CollatzMathService().DivisionBy2(_testValue);
-            // Assert.Equal(_devisionResult, result);
+            var result = await new CollatzMathService().DivisionBy2(_testValue);
+            Assert.Equal(_devisionResult, result);
         }
 
         [Fact]
-        public void LongMath3XTest()
+        public async Task LongMath3XTest()
         {
-            var result = new CollatzMathService().Multiplication(_testValue, 3);
+            var result = await new CollatzMathService().Multiplication(_testValue, 3);
             Assert.Equal(_mathResult, result);
         }
 

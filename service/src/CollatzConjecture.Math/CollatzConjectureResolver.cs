@@ -25,7 +25,7 @@ namespace CollatzConjecture.Math
                 if (number.IsEven())
                     number = await math.DivisionBy2(number);
                 else
-                    number = math.Multiplication(number, 3);
+                    number = await math.Multiplication(number, 3);
                 result.Add(number);
             }
             return result;
@@ -39,7 +39,7 @@ namespace CollatzConjecture.Math
                 if (number.IsEven())
                     number = await math.DivisionBy2(number);
                 else
-                    number = math.Multiplication(number, 3);
+                    number = await math.Multiplication(number, 3);
                 processor.Write(number);
             }
             return processor.GetFileName();

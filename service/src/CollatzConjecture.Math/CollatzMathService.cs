@@ -18,13 +18,13 @@ namespace CollatzConjecture.Math
             IMathResolver resolver = new DivisionResolver();
             while (item != null)
             {
-                result +=  await resolver.Resolve(item);
+                result += (await resolver.Resolve(item)).Result;
                 item = item.Next;
             }
             return result;
         }
 
-        public string Multiplication(string number, int multiplier)
+        public async Task<string> Multiplication(string number, int multiplier)
         {
             int partLength = 8;
             if (!number.IsNumeric())
@@ -33,23 +33,17 @@ namespace CollatzConjecture.Math
             int prevValue = 0;
             var longValue = new MultiplicationConverter().ConvertToLongNumber(number, partLength);
             var item = longValue.GetLast();
+            MultiplicationMathResolver resolver = new MultiplicationMathResolver();
+            MathResult prevResult = null;
             while (item != null)
             {
-                int value = item.Value * 3;
-                if (item.Next == null)
-                    value += 1;
-                value += prevValue;
-                string val = value.ToString();
-                val = val.AddZeros(item.ValueString.Length);
-                if (val.Length > item.ValueString.Length)
-                    prevValue = int.Parse(val.Substring(0, val.Length - item.ValueString.Length));
-                else
-                    prevValue = 0;
+                var res = await resolver.Resolve(item, prevResult);
                 if (item.Prev == null)
-                    result = result.Insert(0, val);
+                    result = result.Insert(0, res.Result);
                 else
-                    result = result.Insert(0, val.Substring(val.Length - item.ValueString.Length, item.ValueString.Length));
+                    result = result.Insert(0, res.Result.Substring(res.Result.Length - item.ValueString.Length, item.ValueString.Length));
                 item = item.Prev;
+                prevResult = res;
             }
             return result;
         }
