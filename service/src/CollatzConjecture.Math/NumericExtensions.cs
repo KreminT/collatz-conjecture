@@ -28,18 +28,6 @@ namespace CollatzConjecture.Math
                 number = number.Insert(0, "0");
             return number;
         }
-        public static string AddZerosIfExists(this string number, string prevLine)
-        {
-            for (int i = 0; i < prevLine.Length; i++)
-            {
-                if (prevLine[i] == '0')
-                {
-                    number = number.Insert(0, "0");
-                }
-                else
-                    break;
-            }
-            return number;
-        }
+        
     }
 }

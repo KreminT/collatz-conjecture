@@ -1,12 +1,13 @@
 ﻿using CollatzConjecture.Math.Converters;
 using CollatzConjecture.Math.Exception;
 using CollatzConjecture.Math.Model;
+using CollatzConjecture.Math.Resolvers;
 
 namespace CollatzConjecture.Math
 {
     public class CollatzMathService : ICollatzMathService
     {
-        public string DivisionBy2(string number)
+        public async Task<string> DivisionBy2(string number)
         {
             if (!number.IsNumeric())
                 throw new NotNumericException(number);
@@ -14,18 +15,10 @@ namespace CollatzConjecture.Math
             string result = string.Empty;
             var numbers = new DivisionConverter().ConvertToLongNumber(number, 8);
             NumericPart? item = numbers.GetFirst();
+            IMathResolver resolver = new DivisionResolver();
             while (item != null)
             {
-                string res = string.Empty;
-                if (item.Value > 1)
-                {
-                    res = ((int)item.Value / 2).ToString();
-                    if (item.ValueString[0] == '0')
-                        res = res.AddZerosIfExists(item.ValueString);
-                }
-                else
-                    res = res.AddZeros(item.ValueString.Length);
-                result += res;
+                result +=  await resolver.Resolve(item);
                 item = item.Next;
             }
             return result;

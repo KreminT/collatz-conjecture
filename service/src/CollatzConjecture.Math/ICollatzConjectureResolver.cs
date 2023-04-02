@@ -4,7 +4,7 @@ namespace CollatzConjecture.Math
 {
     public interface ICollatzConjectureResolver
     {
-        List<string> ResolveConjecture(string number);
-        string ResolveConjecture(string number, IResultProcessor processor);
+        Task<List<string>> ResolveConjecture(string number);
+        Task<string> ResolveConjecture(string number, IResultProcessor processor);
     }
 }
