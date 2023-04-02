@@ -85,11 +85,6 @@ namespace CollatzConjecture.Math
                     isPrevZero = true;
                     number = number.Insert(0, "0");
                 }
-                //else if (prevLine[i] == '1' && isPrevZero )
-                //{
-                //    isPrevZero = false;
-                //    number = number.Insert(0, "0");
-                //}
                 else
                     break;
             }
