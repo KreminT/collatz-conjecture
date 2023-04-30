@@ -27,3 +27,4 @@ yarn-error.log*
 service/src/CollatzConjecture/result/
 *.csproj.user
 /client/.idea
+/client/package-lock.json
