@@ -18,7 +18,7 @@ namespace CollatzConjecture.Math
             IMathResolver resolver = new DivisionResolver();
             while (item != null)
             {
-                result += (await resolver.Resolve(item)).Result;
+                result += (await resolver.Resolve(item, 2)).Result;
                 item = item.Next;
             }
             return result;
@@ -37,7 +37,7 @@ namespace CollatzConjecture.Math
             MathResult prevResult = null;
             while (item != null)
             {
-                var res = await resolver.Resolve(item, prevResult);
+                var res = await resolver.Resolve(item, multiplier, prevResult);
                 if (item.Prev == null)
                     result = result.Insert(0, res.Result);
                 else

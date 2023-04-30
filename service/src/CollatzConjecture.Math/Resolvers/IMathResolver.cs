@@ -4,5 +4,5 @@ namespace CollatzConjecture.Math.Resolvers;
 
 public interface IMathResolver
 {
-    Task<MathResult> Resolve(NumericPart part, MathResult prevResult = null);
+    Task<MathResult> Resolve(NumericPart part, int multiplier, MathResult prevResult = null);
 }

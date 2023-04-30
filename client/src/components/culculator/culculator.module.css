@@ -1,0 +1,74 @@
+.calculator {
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+.calculatorHeader {
+    background-color: #283048;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+.calculatorTitle {
+    margin-top: 0;
+}
+
+.calculatorSubtitle {
+    margin-bottom: 0;
+}
+
+.calculatorBanner {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+
+.calculatorInput {
+    max-width: 200px;
+}
+
+.iterationInput {
+    max-width: 100px;
+}
+.multiplierInput {
+    max-width: 60px;
+}
+input{
+    font-size: 18px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    margin-right: 10px;
+    width: 100%;
+}
+
+.execute{
+    padding: 15px;
+    display: grid;
+}
+
+.calculatorButton {
+    background-color: #283048;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.calculatorButton:hover {
+    background-color: #1e2b3e;
+}
+.calculatorButton:disabled{
+    background-color: #545352;
+    cursor: not-allowed;
+}
+
+.calculatorOutput {
+    margin-top: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+}

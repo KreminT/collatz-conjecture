@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CollatzConjecture.Math.IO;
 using Xunit;
 
 namespace CollatzConjecture.Math.Test
@@ -18,7 +14,9 @@ namespace CollatzConjecture.Math.Test
         [Fact]
         public async Task ResolveTest()
         {
-            var result = await _resolver.ResolveConjecture("43243243256");
+            ResultProcessor processor = new ResultProcessor();
+            await _resolver.ResolveConjecture("43243243256", 3,0, processor);
+            List<string> result = (await processor.GetResults()).ToList();
             Assert.Equal(277, result.Count);
             Assert.Equal("24324324334", result[6]);
         }

@@ -4,10 +4,10 @@ namespace CollatzConjecture.Math.Resolvers;
 
 public class MultiplicationMathResolver : IMathResolver
 {
-    public Task<MathResult> Resolve(NumericPart item, MathResult prevResult = null)
+    public Task<MathResult> Resolve(NumericPart item, int multiplier, MathResult prevResult = null)
     {
         MathResult result = new MathResult();
-        int value = item.Value * 3;
+        int value = item.Value * multiplier;
         if (item.Next == null)
             value += 1;
         value += prevResult?.Remainder ?? 0;
