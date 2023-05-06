@@ -8,7 +8,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<ICollatzMathService, CollatzMathService>();
 builder.Services.AddSingleton<ICollatzConjectureResolver, CollatzConjectureResolver>();
-builder.Services.AddTransient<IResultProcessor, FileResultProcessor>();
+builder.Services.AddTransient<IResultProcessor, ResultProcessor>();
+builder.Services.AddTransient<IFileResultProcessor, FileResultProcessor>();
+
+
+builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
+{
+    builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+}));
+
 var app = builder.Build();
 app.UseHttpsRedirection();
 app.UseRouting();
@@ -32,6 +40,7 @@ if (!app.Environment.IsDevelopment())
 }
 else
 {
+    app.UseCors("corsapp");
     app.UseSwagger();
     app.UseSwaggerUI();
     staticFolder = Path.Combine(builder.Environment.ContentRootPath, "../../../client/build");

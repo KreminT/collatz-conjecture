@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CollatzConjecture.Math.IO
+﻿namespace CollatzConjecture.Math.IO
 {
-    public class FileResultProcessor : IResultProcessor
+    public class FileResultProcessor : IFileResultProcessor
     {
         private string _fileName;
         public FileResultProcessor()
@@ -22,12 +15,17 @@ namespace CollatzConjecture.Math.IO
             return _fileName;
         }
 
-        public void Write(string result)
+        public async Task Write(string result)
         {
             using (StreamWriter sw = File.AppendText(_fileName))
             {
-                sw.WriteLine(result);
+                await sw.WriteLineAsync(result);
             }
+        }
+
+        public async Task<IEnumerable<string>> GetResults()
+        {
+            return await File.ReadAllLinesAsync(_fileName);
         }
     }
 }

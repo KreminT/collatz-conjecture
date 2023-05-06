@@ -1,9 +1,4 @@
 ﻿using CollatzConjecture.Math.IO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CollatzConjecture.Math
 {
@@ -16,33 +11,19 @@ namespace CollatzConjecture.Math
             this.math = math;
         }
 
-        public async Task<List<string>> ResolveConjecture(string number)
+        public async Task ResolveConjecture(string number, int multiplier, int maxIteration, IResultProcessor processor)
         {
-            List<string> result = new List<string>();
-            result.Add(number);
-            while (number != "1")
+            HashSet<string> values = new HashSet<string>();
+            while (number != "1" && !values.Contains(number) && (maxIteration==0 || values.Count<=maxIteration))
             {
+                await processor.Write(number);
+                values.Add(number);
                 if (number.IsEven())
                     number = await math.DivisionBy2(number);
                 else
-                    number = await math.Multiplication(number, 3);
-                result.Add(number);
+                    number = await math.Multiplication(number, multiplier);
             }
-            return result;
-        }
-
-        public async Task<string> ResolveConjecture(string number, IResultProcessor processor)
-        {
-            processor.Write(number);
-            while (number != "1")
-            {
-                if (number.IsEven())
-                    number = await math.DivisionBy2(number);
-                else
-                    number = await math.Multiplication(number, 3);
-                processor.Write(number);
-            }
-            return processor.GetFileName();
+            await processor.Write(number);
         }
     }
 }

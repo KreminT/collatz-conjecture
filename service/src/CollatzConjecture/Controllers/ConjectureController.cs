@@ -1,8 +1,7 @@
 ﻿using CollatzConjecture.Math;
 using CollatzConjecture.Math.IO;
-using Microsoft.AspNetCore.Http;
+using CollatzConjecture.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.IO;
 
 namespace CollatzConjecture.Controllers
 {
@@ -10,24 +9,26 @@ namespace CollatzConjecture.Controllers
     [ApiController]
     public class ConjectureController : ControllerBase
     {
-        private readonly ICollatzConjectureResolver resolver;
-        private readonly IResultProcessor resultProcessor;
+        private readonly ICollatzConjectureResolver _resolver;
+        private readonly IFileResultProcessor _fileResultProcessor;
+        private readonly IResultProcessor _resultProcessor;
 
-        public ConjectureController(ICollatzConjectureResolver resolver, IResultProcessor resultProcessor)
+        public ConjectureController(ICollatzConjectureResolver resolver, IFileResultProcessor fileResultProcessor, IResultProcessor resultProcessor)
         {
-            this.resolver = resolver;
-            this.resultProcessor = resultProcessor;
+            this._resolver = resolver;
+            this._fileResultProcessor = fileResultProcessor;
+            _resultProcessor = resultProcessor;
         }
 
         [HttpPost, Route("resolve")]
-        public async Task<ActionResult> Resolve([FromBody] string value)
+        public async Task<ActionResult> ResolveToFile([FromBody] BodyArgs args)
         {
-            await resolver.ResolveConjecture(value, resultProcessor);
-            string fileName = Path.GetFileName(resultProcessor.GetFileName());
-            Stream stream = System.IO.File.OpenRead(resultProcessor.GetFileName());
+            await _resolver.ResolveConjecture(args.Value, args.Multiplier,args.MaxIteration, _fileResultProcessor);
+            string fileName = Path.GetFileName(_fileResultProcessor.GetFileName());
+            Stream stream = System.IO.File.OpenRead(_fileResultProcessor.GetFileName());
 
             if (stream == null)
-                throw new BadHttpRequestException(value); // returns a NotFoundResult with Status404NotFound response.
+                throw new BadHttpRequestException(args.Value); // returns a NotFoundResult with Status404NotFound response.
 
             return File(stream, "application/octet-stream", fileName); // returns a FileStreamR
         }
@@ -42,6 +43,13 @@ namespace CollatzConjecture.Controllers
                 throw new BadHttpRequestException(value); // returns a NotFoundResult with Status404NotFound response.
 
             return File(stream, "application/octet-stream", fileName); // returns a FileStreamR
+        }
+
+        [HttpGet, Route("resolve")]
+        public async Task<IEnumerable<string>> Resolve([FromQuery] string value, [FromQuery] int multiplier)
+        {
+            await _resolver.ResolveConjecture(value, multiplier,0, _resultProcessor);
+            return await _resultProcessor.GetResults();
         }
 
 

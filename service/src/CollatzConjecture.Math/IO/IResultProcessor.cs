@@ -2,7 +2,8 @@
 {
     public interface IResultProcessor
     {
-        string GetFileName();
-        public void Write(string result);
+        public Task Write(string result);
+
+        public Task<IEnumerable<string>> GetResults();
     }
 }
