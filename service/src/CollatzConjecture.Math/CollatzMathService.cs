@@ -18,26 +18,25 @@ namespace CollatzConjecture.Math
             IMathResolver resolver = new DivisionResolver();
             while (item != null)
             {
-                result += (await resolver.Resolve(item, 2)).Result;
+                result += (await resolver.Resolve(item, 2, false)).Result;
                 item = item.Next;
             }
             return result;
         }
 
-        public async Task<string> Multiplication(string number, int multiplier)
+        public async Task<string> Multiplication(string number, int multiplier, bool isSubtraction)
         {
             int partLength = 8;
             if (!number.IsNumeric())
                 throw new NotNumericException(number);
             string result = string.Empty;
-            int prevValue = 0;
             var longValue = new MultiplicationConverter().ConvertToLongNumber(number, partLength);
             var item = longValue.GetLast();
             MultiplicationMathResolver resolver = new MultiplicationMathResolver();
             MathResult prevResult = null;
             while (item != null)
             {
-                var res = await resolver.Resolve(item, multiplier, prevResult);
+                var res = await resolver.Resolve(item, multiplier, isSubtraction, prevResult);
                 if (item.Prev == null)
                     result = result.Insert(0, res.Result);
                 else

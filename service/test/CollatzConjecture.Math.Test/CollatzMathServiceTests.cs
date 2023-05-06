@@ -10,13 +10,26 @@ namespace CollatzConjecture.Math.Test
         {
             CollatzMathService mathService = new CollatzMathService();
 
-            Assert.ThrowsAsync<NotNumericException>(async () => await mathService.Multiplication("48,974,897", 3));
-            Assert.Equal("146924692", await mathService.Multiplication("48974897", 3));
-            Assert.Equal("13327297298229729730", await mathService.Multiplication("4442432432743243243", 3));
-            Assert.Equal("22458979439497942177942096", await mathService.Multiplication("7486326479832647392647365", 3));
-            Assert.Equal("99304", await mathService.Multiplication("33101", 3));
-            Assert.Equal("3000000004", await mathService.Multiplication("1000000001", 3));
+            Assert.ThrowsAsync<NotNumericException>(async () => await mathService.Multiplication("48,974,897", 3, false));
+            Assert.Equal("146924692", await mathService.Multiplication("48974897", 3, false));
+            Assert.Equal("13327297298229729730", await mathService.Multiplication("4442432432743243243", 3, false));
+            Assert.Equal("22458979439497942177942096", await mathService.Multiplication("7486326479832647392647365", 3, false));
+            Assert.Equal("99304", await mathService.Multiplication("33101", 3, false));
+            Assert.Equal("3000000004", await mathService.Multiplication("1000000001", 3, false));
 
+        }
+
+        [Fact]
+        public async Task Math3XWithSubtractionTest()
+        {
+            CollatzMathService mathService = new CollatzMathService();
+
+            Assert.ThrowsAsync<NotNumericException>(async () => await mathService.Multiplication("48,974,897", 3, true));
+            Assert.Equal("146924690", await mathService.Multiplication("48974897", 3, true));
+            Assert.Equal("13327297298229729728", await mathService.Multiplication("4442432432743243243", 3, true));
+            Assert.Equal("22458979439497942177942094", await mathService.Multiplication("7486326479832647392647365", 3, true));
+            Assert.Equal("99302", await mathService.Multiplication("33101", 3, true));
+            Assert.Equal("3000000002", await mathService.Multiplication("1000000001", 3, true));
         }
 
         [Fact]
@@ -53,7 +66,7 @@ namespace CollatzConjecture.Math.Test
         [Fact]
         public async Task LongMath3XTest()
         {
-            var result = await new CollatzMathService().Multiplication(_testValue, 3);
+            var result = await new CollatzMathService().Multiplication(_testValue, 3, false);
             Assert.Equal(_mathResult, result);
         }
 

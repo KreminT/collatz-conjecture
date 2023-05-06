@@ -23,7 +23,7 @@ namespace CollatzConjecture.Math
                 if (number.IsEven())
                     number = await math.DivisionBy2(number);
                 else
-                    number = await math.Multiplication(number, args.Multiplier);
+                    number = await math.Multiplication(number, args.Multiplier, args.IsSubtraction);
             }
             await processor.Write(number);
         }

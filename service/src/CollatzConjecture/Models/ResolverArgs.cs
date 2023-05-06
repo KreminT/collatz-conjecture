@@ -12,7 +12,7 @@ namespace CollatzConjecture.Models
         public int MaxIteration { get; set; }
 
         public bool IsSubtraction { get; set; }
-        public int StartInterval { get; set; }
-        public int EndInterval { get; set; }
+        public int? StartInterval { get; set; }
+        public int? EndInterval { get; set; }
     }
 }

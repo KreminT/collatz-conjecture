@@ -4,7 +4,7 @@ namespace CollatzConjecture.Math.Resolvers;
 
 public class DivisionResolver : IMathResolver
 {
-    public Task<MathResult> Resolve(NumericPart item, int multiplier, MathResult prevResult = null)
+    public Task<MathResult> Resolve(NumericPart item, int multiplier, bool isSubtraction, MathResult prevResult = null)
     {
         string res = string.Empty;
         if (item.Value > 1)

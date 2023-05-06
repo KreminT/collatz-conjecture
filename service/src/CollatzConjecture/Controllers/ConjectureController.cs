@@ -2,6 +2,7 @@
 using CollatzConjecture.Math.IO;
 using CollatzConjecture.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
 
 namespace CollatzConjecture.Controllers
 {
@@ -24,13 +25,7 @@ namespace CollatzConjecture.Controllers
         public async Task<ActionResult> ResolveToFile([FromBody] ResolverArgs args)
         {
             await _resolver.ResolveConjecture(args, _fileResultProcessor);
-            string fileName = Path.GetFileName(_fileResultProcessor.GetFileName());
-            Stream stream = System.IO.File.OpenRead(_fileResultProcessor.GetFileName());
-
-            if (stream == null)
-                throw new BadHttpRequestException(args.Value); // returns a NotFoundResult with Status404NotFound response.
-
-            return File(stream, "application/octet-stream", fileName); // returns a FileStreamR
+            return File(await _fileResultProcessor.GetStream(args.StartInterval, args.EndInterval), "application/octet-stream", _fileResultProcessor.GetFileName()); // returns a FileStreamR
         }
 
         [HttpGet, Route("result")]
@@ -49,7 +44,7 @@ namespace CollatzConjecture.Controllers
         public async Task<IEnumerable<string>> Resolve([FromQuery] ResolverArgs args)
         {
             await _resolver.ResolveConjecture(args, _resultProcessor);
-            return await _resultProcessor.GetResults();
+            return await _resultProcessor.GetResults(args.StartInterval, args.EndInterval);
         }
 
 

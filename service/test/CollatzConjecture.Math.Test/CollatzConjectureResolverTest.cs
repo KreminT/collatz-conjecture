@@ -22,7 +22,7 @@ namespace CollatzConjecture.Math.Test
             argsMock.Setup(item => item.MaxIteration).Returns(0);
             ResultProcessor processor = new ResultProcessor();
             await _resolver.ResolveConjecture(argsMock.Object, processor);
-            List<string> result = (await processor.GetResults()).ToList();
+            List<string> result = (await processor.GetResults(null, null)).ToList();
             Assert.Equal(277, result.Count);
             Assert.Equal("24324324334", result[6]);
         }

@@ -4,6 +4,6 @@
     {
         public Task Write(string result);
 
-        public Task<IEnumerable<string>> GetResults();
+        public Task<IEnumerable<string>> GetResults(int? startIndex, int? endIndex);
     }
 }
