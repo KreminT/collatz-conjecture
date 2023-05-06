@@ -21,9 +21,9 @@ namespace CollatzConjecture.Controllers
         }
 
         [HttpPost, Route("resolve")]
-        public async Task<ActionResult> ResolveToFile([FromBody] BodyArgs args)
+        public async Task<ActionResult> ResolveToFile([FromBody] ResolverArgs args)
         {
-            await _resolver.ResolveConjecture(args.Value, args.Multiplier,args.MaxIteration, _fileResultProcessor);
+            await _resolver.ResolveConjecture(args, _fileResultProcessor);
             string fileName = Path.GetFileName(_fileResultProcessor.GetFileName());
             Stream stream = System.IO.File.OpenRead(_fileResultProcessor.GetFileName());
 
@@ -46,9 +46,9 @@ namespace CollatzConjecture.Controllers
         }
 
         [HttpGet, Route("resolve")]
-        public async Task<IEnumerable<string>> Resolve([FromQuery] string value, [FromQuery] int multiplier)
+        public async Task<IEnumerable<string>> Resolve([FromQuery] ResolverArgs args)
         {
-            await _resolver.ResolveConjecture(value, multiplier,0, _resultProcessor);
+            await _resolver.ResolveConjecture(args, _resultProcessor);
             return await _resultProcessor.GetResults();
         }
 
