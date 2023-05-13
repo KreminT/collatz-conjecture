@@ -19,7 +19,7 @@ namespace CollatzConjecture.Math.IO
 
         public async Task<Stream> GetStream(int? startIndex, int? endIndex)
         {
-            if (startIndex is > -1 || endIndex is > 0)
+            if (startIndex is > 0 || endIndex is > 0)
             {
                 MemoryStream memoryStream = new MemoryStream();
                 await using Stream stream = File.Open(_fileName, FileMode.Open);
@@ -28,7 +28,7 @@ namespace CollatzConjecture.Math.IO
                 while (!reader.EndOfStream)
                 {
                     var line = await reader.ReadLineAsync();
-                    if (index >= (startIndex ?? -1) && index <= (endIndex ?? index + 1) && !string.IsNullOrEmpty(line))
+                    if (index >= (startIndex ?? -1) && (index <= (endIndex ?? index + 1) || endIndex == 0) && !string.IsNullOrEmpty(line))
                     {
                         await memoryStream.WriteAsync(Encoding.UTF8.GetBytes(line));
                         await memoryStream.WriteAsync(Encoding.UTF8.GetBytes(Environment.NewLine));
