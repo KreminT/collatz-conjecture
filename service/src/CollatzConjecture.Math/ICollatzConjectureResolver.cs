@@ -1,9 +1,10 @@
 ﻿using CollatzConjecture.Math.IO;
+using CollatzConjecture.Math.Model;
 
 namespace CollatzConjecture.Math
 {
     public interface ICollatzConjectureResolver
     {
-        Task ResolveConjecture(string number, int multiplier,int maxIteration, IResultProcessor processor);
+        Task ResolveConjecture(IResolverArgs args, IResultProcessor processor);
     }
 }

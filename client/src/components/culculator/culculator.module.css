@@ -1,5 +1,5 @@
 .calculator {
-    max-width: 750px;
+    max-width: 950px;
     margin: 0 auto;
 }
 
@@ -31,10 +31,26 @@
 .iterationInput {
     max-width: 100px;
 }
+.subtractionInput {
+    max-width: 60px;
+}
+
 .multiplierInput {
     max-width: 60px;
 }
+.divBlock{
+    margin-top: 5px;
+}
 input{
+    font-size: 18px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    margin-right: 10px;
+    width: 100%;
+}
+
+select{
     font-size: 18px;
     border: 2px solid #ccc;
     border-radius: 4px;

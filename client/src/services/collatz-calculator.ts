@@ -3,22 +3,31 @@ import {saveAs} from "file-saver"
 export class CollatzCalculatorService {
     private apiUrl = "/Conjecture/resolve";
 
-    async calculateSequence(n: string, multiplier: number): Promise<string[]> {
-        const response = await fetch(`${this.apiUrl}?value=${n}&multiplier=${multiplier}`);
+    async calculateSequence(args: calculationArgs): Promise<string[]> {
+        const response = await fetch(`${this.apiUrl}?value=${args.value}&multiplier=${args.multiplier}&isSubtraction=${args.isSubtraction}&startInterval=${args.startInterval}&endInterval=${args.endInterval}`);
         const data: string[] = await response.json();
         console.log(data)
         return data;
     }
 
-    async calculateSequenceToFile(n: string, multiplier: number, maxIteration: number): Promise<any> {
+    async calculateSequenceToFile(args: calculationArgs): Promise<any> {
         const response = await fetch(`${this.apiUrl}`, {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({value: n, multiplier: multiplier, maxIteration: maxIteration})
+            body: JSON.stringify(args)
         });
         const data: any = await response.blob();
         saveAs(data, "file.txt");
         console.log(data)
         return data;
     }
+}
+
+interface calculationArgs {
+    value: string,
+    multiplier: number,
+    maxIteration: number,
+    isSubtraction: boolean,
+    startInterval: number,
+    endInterval: number
 }
