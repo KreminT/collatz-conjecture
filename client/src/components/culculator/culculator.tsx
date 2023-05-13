@@ -11,16 +11,28 @@ function CollatzCalculator(props: Props) {
     const [multiplier, setMultiplier] = useState<number>(3);
     const [maxIteration, setMaxIteration] = useState(20000);
     const [isLoading, setLoading] = useState(false);
+    const [isSubtraction, setSubtraction] = useState(false);
+    const [startInterval, setStartInterval] = useState(0);
+    const [endInterval, setEndInterval] = useState(0);
 
     const handleCalculate = async () => {
         const calculator = new CollatzCalculatorService();
         setLoading(true)
         setSequence([]);
+        const args = {
+            isSubtraction: isSubtraction,
+            value: number,
+            multiplier: multiplier,
+            maxIteration: multiplier != 3 ? maxIteration : 0,
+            startInterval: startInterval,
+            endInterval: endInterval
+        };
+        console.log(args)
         if (number.length > 100 || multiplier != 3) {
-            await calculator.calculateSequenceToFile(number, multiplier, multiplier != 3 ? maxIteration : 0);
+            await calculator.calculateSequenceToFile(args);
             alert("File downloaded")
         } else {
-            const result = await calculator.calculateSequence(number, multiplier);
+            const result = await calculator.calculateSequence(args);
             setSequence(result);
         }
         setLoading(false)
@@ -41,12 +53,33 @@ function CollatzCalculator(props: Props) {
                 <input disabled={isLoading} id="multiplier-input" type="number" className={styles.multiplierInput}
                        value={multiplier}
                        onChange={(e) => setMultiplier(parseInt(e.target.value))}/>
+                <span>
+                    <label htmlFor="operation-input">Operation: </label>
+                    <select disabled={isLoading} id="operation-input"
+                            className={styles.subtractionInput}
+                            onChange={(e) => {
+                                setSubtraction(e.target.value == "true")
+                            }}>
+                        <option value="false">+</option>
+                        <option value="true">-</option>
+                    </select>
+                </span>
                 <span style={{visibility: multiplier == 3 ? "hidden" : "visible"}}>
                     <label htmlFor="iteration-input">Max iteration: </label>
                     <input disabled={multiplier == 3 || isLoading} id="iteration-input" type="number"
                            className={styles.iterationInput} value={maxIteration}
                            onChange={(e) => setMaxIteration(parseInt(e.target.value))}/>
                 </span>
+                <div className={styles.divBlock}>
+                    <label htmlFor="range-start-input">Show range: from </label>
+                    <input disabled={isLoading} id="range-start-input" type="number" className={styles.iterationInput}
+                           value={startInterval}
+                           onChange={(e) => setStartInterval(parseInt(e.target.value))}/>
+                    <label htmlFor="range-end-input">to </label>
+                    <input disabled={isLoading} id="range-end-input" type="number" className={styles.iterationInput}
+                           value={endInterval}
+                           onChange={(e) => setEndInterval(parseInt(e.target.value))}/>
+                </div>
                 <div className={styles.execute}>
                     <button disabled={isLoading} className={styles.calculatorButton} onClick={handleCalculate}>
                         Calculate
