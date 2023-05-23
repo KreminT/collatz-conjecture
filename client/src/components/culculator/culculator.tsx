@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {CollatzCalculatorService} from "../../services/collatz-calculator";
 import styles from "./culculator.module.css"
+import {log} from "util";
 
 interface Props {
 }
@@ -14,6 +15,7 @@ function CollatzCalculator(props: Props) {
     const [isSubtraction, setSubtraction] = useState(false);
     const [startInterval, setStartInterval] = useState(0);
     const [endInterval, setEndInterval] = useState(0);
+    const [emptyLine, setEmptyLine] = useState(false);
 
     const handleCalculate = async () => {
         const calculator = new CollatzCalculatorService();
@@ -25,7 +27,8 @@ function CollatzCalculator(props: Props) {
             multiplier: multiplier,
             maxIteration: multiplier != 3 ? maxIteration : 0,
             startInterval: startInterval,
-            endInterval: endInterval
+            endInterval: endInterval,
+            addEmptyLine: emptyLine
         };
         console.log(args)
         if (number.length > 100 || multiplier != 3) {
@@ -79,6 +82,12 @@ function CollatzCalculator(props: Props) {
                     <input disabled={isLoading} id="range-end-input" type="number" className={styles.iterationInput}
                            value={endInterval}
                            onChange={(e) => setEndInterval(parseInt(e.target.value))}/>
+                </div>
+                <div className={styles.divBlock}>
+                    <label htmlFor="add-empty-line">Add empty line in result file:  </label>
+                    <input type={"checkbox"} id="add-empty-line" checked={emptyLine} onChange={(e) => setEmptyLine(e.target.checked)}
+                           className={styles.checkInput}
+                    />
                 </div>
                 <div className={styles.execute}>
                     <button disabled={isLoading} className={styles.calculatorButton} onClick={handleCalculate}>

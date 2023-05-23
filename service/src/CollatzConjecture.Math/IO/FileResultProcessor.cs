@@ -20,29 +20,28 @@ namespace CollatzConjecture.Math.IO
 
         public async Task<Stream> GetStream(IFileResultProcessingArgs args)
         {
-            if (args.StartInterval is > 0 || args.EndInterval is > 0)
+            MemoryStream memoryStream = new MemoryStream();
+            await using Stream stream = File.Open(_fileName, FileMode.Open);
+            using StreamReader reader = new StreamReader(stream);
+            int index = 0;
+            bool readFullFile = args.StartInterval is > 0 || args.EndInterval is > 0;
+            while (!reader.EndOfStream)
             {
-                MemoryStream memoryStream = new MemoryStream();
-                await using Stream stream = File.Open(_fileName, FileMode.Open);
-                using StreamReader reader = new StreamReader(stream);
-                int index = 0;
-                while (!reader.EndOfStream)
+                var line = await reader.ReadLineAsync();
+                bool writeLine = !string.IsNullOrEmpty(line) && (readFullFile || (index >= (args.StartInterval ?? -1) &&
+                                                                               (index <= (args.EndInterval ?? index + 1) || args.EndInterval == 0)));
+                if (writeLine)
                 {
-                    var line = await reader.ReadLineAsync();
-                    if (index >= (args.StartInterval ?? -1) && (index <= (args.EndInterval ?? index + 1) || args.EndInterval == 0) && !string.IsNullOrEmpty(line))
-                    {
-                        await memoryStream.WriteAsync(Encoding.UTF8.GetBytes(line));
-                        if (args.AddEmptyLine)
-                            await memoryStream.WriteAsync(Encoding.UTF8.GetBytes(Environment.NewLine));
-                    }
-                    index++;
+                    await memoryStream.WriteAsync(Encoding.UTF8.GetBytes(line));
+                    await memoryStream.WriteAsync(Encoding.UTF8.GetBytes(Environment.NewLine));
+                    if (args.AddEmptyLine)
+                        await memoryStream.WriteAsync(Encoding.UTF8.GetBytes(Environment.NewLine));
                 }
-
-                memoryStream.Position = 0;
-                return memoryStream;
+                index++;
             }
-            else
-                return System.IO.File.OpenRead(_fileName);
+
+            memoryStream.Position = 0;
+            return memoryStream;
         }
 
         public async Task Write(string result)

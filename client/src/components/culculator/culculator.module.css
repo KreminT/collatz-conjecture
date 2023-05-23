@@ -31,6 +31,12 @@
 .iterationInput {
     max-width: 100px;
 }
+
+.checkInput {
+    max-width: 10px;
+    transform: scale(2);
+}
+
 .subtractionInput {
     max-width: 60px;
 }

@@ -29,5 +29,6 @@ interface calculationArgs {
     maxIteration: number,
     isSubtraction: boolean,
     startInterval: number,
-    endInterval: number
+    endInterval: number,
+    addEmptyLine: boolean
 }
