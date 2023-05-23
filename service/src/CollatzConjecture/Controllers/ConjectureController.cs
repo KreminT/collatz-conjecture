@@ -25,7 +25,7 @@ namespace CollatzConjecture.Controllers
         public async Task<ActionResult> ResolveToFile([FromBody] ResolverArgs args)
         {
             await _resolver.ResolveConjecture(args, _fileResultProcessor);
-            return File(await _fileResultProcessor.GetStream(args.StartInterval, args.EndInterval), "application/octet-stream", _fileResultProcessor.GetFileName()); // returns a FileStreamR
+            return File(await _fileResultProcessor.GetStream(args), "application/octet-stream", _fileResultProcessor.GetFileName()); // returns a FileStreamR
         }
 
         [HttpGet, Route("result")]
@@ -44,7 +44,7 @@ namespace CollatzConjecture.Controllers
         public async Task<IEnumerable<string>> Resolve([FromQuery] ResolverArgs args)
         {
             await _resolver.ResolveConjecture(args, _resultProcessor);
-            return await _resultProcessor.GetResults(args.StartInterval, args.EndInterval);
+            return await _resultProcessor.GetResults(args);
         }
 
 

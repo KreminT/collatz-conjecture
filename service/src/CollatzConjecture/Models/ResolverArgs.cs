@@ -1,9 +1,10 @@
 ﻿using CollatzConjecture.Math.Model;
 using System.ComponentModel.DataAnnotations;
+using CollatzConjecture.Math.IO.Args;
 
 namespace CollatzConjecture.Models
 {
-    public class ResolverArgs : IResolverArgs
+    public class ResolverArgs : IResolverArgs, IFileResultProcessingArgs
     {
         [Required]
         public string Value { get; set; }
@@ -14,5 +15,9 @@ namespace CollatzConjecture.Models
         public bool IsSubtraction { get; set; }
         public int? StartInterval { get; set; }
         public int? EndInterval { get; set; }
+        /// <summary>
+        /// Add empty line to result file between iteration
+        /// </summary>
+        public bool AddEmptyLine { get; set; }
     }
 }
