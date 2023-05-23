@@ -1,4 +1,6 @@
-﻿namespace CollatzConjecture.Math.IO;
+﻿using CollatzConjecture.Math.IO.Args;
+
+namespace CollatzConjecture.Math.IO;
 
 public class ResultProcessor : IResultProcessor
 {
@@ -10,8 +12,8 @@ public class ResultProcessor : IResultProcessor
         return Task.CompletedTask;
     }
 
-    public Task<IEnumerable<string>> GetResults(int? startIndex, int? endIndex)
+    public Task<IEnumerable<string>> GetResults(IResultProcessingArgs args)
     {
-        return Task.FromResult(_results.GetBetween(startIndex, endIndex));
+        return Task.FromResult(_results.GetBetween(args.StartInterval,args.EndInterval));
     }
 }
