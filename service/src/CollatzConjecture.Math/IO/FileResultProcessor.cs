@@ -32,7 +32,8 @@ namespace CollatzConjecture.Math.IO
                     if (index >= (args.StartInterval ?? -1) && (index <= (args.EndInterval ?? index + 1) || args.EndInterval == 0) && !string.IsNullOrEmpty(line))
                     {
                         await memoryStream.WriteAsync(Encoding.UTF8.GetBytes(line));
-                        await memoryStream.WriteAsync(Encoding.UTF8.GetBytes(Environment.NewLine));
+                        if (args.AddEmptyLine)
+                            await memoryStream.WriteAsync(Encoding.UTF8.GetBytes(Environment.NewLine));
                     }
                     index++;
                 }
