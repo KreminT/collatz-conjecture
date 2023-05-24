@@ -1,4 +1,5 @@
-﻿using CollatzConjecture.Math.IO;
+﻿using CollatzConjecture.Math.Calc;
+using CollatzConjecture.Math.IO;
 using CollatzConjecture.Math.IO.Args;
 using CollatzConjecture.Math.Model;
 using Moq;
@@ -12,7 +13,7 @@ namespace CollatzConjecture.Math.Test
         Mock<IFileResultProcessingArgs> _args;
         public CollatzConjectureResolverTest()
         {
-            _resolver = new CollatzConjectureResolver(new CollatzMathService());
+            _resolver = new CollatzConjectureResolver(new CollatzMathService(new CollatzCalc()));
             _args = new Mock<IFileResultProcessingArgs>();
             _args.Setup(item => item.StartInterval).Returns((int?)null);
             _args.Setup(item => item.EndInterval).Returns((int?)null);

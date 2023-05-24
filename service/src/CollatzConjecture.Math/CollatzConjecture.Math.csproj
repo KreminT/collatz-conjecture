@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="IO\Args\" />
-    <Folder Include="Resolvers\" />
   </ItemGroup>
 
 </Project>

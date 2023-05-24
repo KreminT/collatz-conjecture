@@ -1,6 +1,6 @@
-﻿namespace CollatzConjecture.Math.Resolvers;
+﻿namespace CollatzConjecture.Math.Calc;
 
-public class MathResult
+public class CalculationResult
 {
     public string Result { get; set; }
     public int Remainder { get; set; }
