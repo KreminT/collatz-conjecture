@@ -1,12 +1,19 @@
-﻿using CollatzConjecture.Math.Converters;
+﻿using CollatzConjecture.Math.Calc;
+using CollatzConjecture.Math.Converters;
 using CollatzConjecture.Math.Exception;
 using CollatzConjecture.Math.Model;
-using CollatzConjecture.Math.Resolvers;
 
 namespace CollatzConjecture.Math
 {
     public class CollatzMathService : ICollatzMathService
     {
+        private readonly CollatzCalc _calc;
+
+        public CollatzMathService(CollatzCalc calc)
+        {
+            _calc = calc;
+        }
+
         public async Task<string> DivisionBy2(string number)
         {
             if (!number.IsNumeric())
@@ -15,10 +22,9 @@ namespace CollatzConjecture.Math
             string result = string.Empty;
             var numbers = new DivisionConverter().ConvertToLongNumber(number, 8);
             NumericPart? item = numbers.GetFirst();
-            IMathResolver resolver = new DivisionResolver();
             while (item != null)
             {
-                result += (await resolver.Resolve(item, 2, false)).Result;
+                result += (await _calc.Division(item)).Result;
                 item = item.Next;
             }
             return result;
@@ -32,11 +38,10 @@ namespace CollatzConjecture.Math
             string result = string.Empty;
             var longValue = new MultiplicationConverter().ConvertToLongNumber(number, partLength);
             var item = longValue.GetLast();
-            MultiplicationMathResolver resolver = new MultiplicationMathResolver();
-            MathResult prevResult = null;
+            CalculationResult prevResult = null;
             while (item != null)
             {
-                var res = await resolver.Resolve(item, multiplier, isSubtraction, prevResult);
+                var res = await _calc.Multiplication(new MultiplicationArgs(item, multiplier, isSubtraction, prevResult));
                 if (item.Prev == null)
                     result = result.Insert(0, res.Result);
                 else
