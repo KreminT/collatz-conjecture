@@ -29,4 +29,8 @@ public class DivisionConverter : LongNumberConverter
         }
         return false;
     }
+
+    public DivisionConverter(IResolverConfiguration configuration) : base(configuration)
+    {
+    }
 }
