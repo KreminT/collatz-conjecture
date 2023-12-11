@@ -133,7 +133,7 @@ Project Link: [https://github.com/KreminT/collatz-conjecture/](https://github.co
 [issues-shield]: https://img.shields.io/github/issues/KreminT/collatz-conjecture.svg?style=for-the-badge
 [issues-url]: https://github.com/KreminT/collatz-conjecture/issues
 [license-shield]: https://img.shields.io/github/license/KreminT/collatz-conjecture.svg?style=for-the-badge
-[license-url]: https://github.com/KreminT/collatz-conjecture.svg/blob/master/LICENSE.txt
+[license-url]: https://github.com/KreminT/collatz-conjecture/blob/main/LICENSE
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
 [.net6]: https://img.shields.io/badge/net-6?style=for-the-badge&logo=react&logoColor=61DAFB
