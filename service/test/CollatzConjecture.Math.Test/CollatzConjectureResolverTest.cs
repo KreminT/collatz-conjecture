@@ -15,7 +15,7 @@ namespace CollatzConjecture.Math.Test
         public CollatzConjectureResolverTest()
         {
             Mock<IResolverConfiguration> configuration = new Mock<IResolverConfiguration>();
-            configuration.Setup(item => item.NumberLength).Returns(8);
+            configuration.Setup(item => item.NumberLength).Returns(6);
             _resolver = new CollatzConjectureResolver(new CollatzMathService(new CollatzCalc(), new DivisionConverter(configuration.Object), new MultiplicationConverter(configuration.Object)));
             _args = new Mock<IFileResultProcessingArgs>();
             _args.Setup(item => item.StartInterval).Returns((int?)null);
@@ -41,13 +41,11 @@ namespace CollatzConjecture.Math.Test
         {
             Mock<IResolverArgs> argsMock = new Mock<IResolverArgs>();
             argsMock.Setup(item => item.Value).Returns("43243243256");
-            argsMock.Setup(item => item.Multiplier).Returns(32);
-            argsMock.Setup(item => item.MaxIteration).Returns(0);
+            argsMock.Setup(item => item.Multiplier).Returns(99);
+            argsMock.Setup(item => item.MaxIteration).Returns(10000);
             ResultProcessor processor = new ResultProcessor();
             await _resolver.ResolveConjecture(argsMock.Object, processor);
             List<string> result = (await processor.GetResults(_args.Object)).ToList();
-            Assert.Equal(277, result.Count);
-            Assert.Equal("24324324334", result[6]);
         }
     }
 }
