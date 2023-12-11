@@ -4,7 +4,14 @@ namespace CollatzConjecture.Math.Converters;
 
 public abstract class LongNumberConverter
 {
-    public LongNumber ConvertToLongNumber(string number, int length)
+    private readonly IResolverConfiguration _configuration;
+
+    public LongNumberConverter(IResolverConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
+
+    public LongNumber ConvertToLongNumber(string number)
     {
         LongNumber longNumber = new LongNumber();
         if (string.IsNullOrEmpty(number))
@@ -16,14 +23,14 @@ public abstract class LongNumberConverter
         {
             line += item;
             iteration++;
-            if (iteration == length)
+            if (iteration == _configuration.NumberLength)
             {
                 longNumber.Add(Prepare(line, longNumber));
                 line = String.Empty;
                 iteration = 0;
             }
         }
-        if (iteration < length && !string.IsNullOrEmpty(line))
+        if (iteration < _configuration.NumberLength && !string.IsNullOrEmpty(line))
             longNumber.Add(Prepare(line, longNumber));
         return longNumber;
     }

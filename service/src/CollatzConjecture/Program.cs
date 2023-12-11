@@ -1,13 +1,20 @@
+using CollatzConjecture.Configuration;
 using CollatzConjecture.Math;
 using CollatzConjecture.Math.Calc;
+using CollatzConjecture.Math.Converters;
 using CollatzConjecture.Math.IO;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Configuration.AddYamlFile("config.yaml");
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<IResolverConfiguration, AppConfiguration>();
+builder.Services.AddSingleton<DivisionConverter>();
+builder.Services.AddSingleton<MultiplicationConverter>();
 builder.Services.AddSingleton<ICollatzMathService, CollatzMathService>();
+
 builder.Services.AddSingleton<ICollatzConjectureResolver, CollatzConjectureResolver>();
 builder.Services.AddSingleton<CollatzCalc>();
 builder.Services.AddTransient<IResultProcessor, ResultProcessor>();

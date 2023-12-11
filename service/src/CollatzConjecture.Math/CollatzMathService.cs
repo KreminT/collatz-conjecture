@@ -8,10 +8,14 @@ namespace CollatzConjecture.Math
     public class CollatzMathService : ICollatzMathService
     {
         private readonly CollatzCalc _calc;
+        private readonly DivisionConverter _divisionConverter;
+        private readonly MultiplicationConverter _multiplicationConverter;
 
-        public CollatzMathService(CollatzCalc calc)
+        public CollatzMathService(CollatzCalc calc, DivisionConverter divisionConverter,MultiplicationConverter multiplicationConverter )
         {
             _calc = calc;
+            _divisionConverter = divisionConverter;
+            _multiplicationConverter = multiplicationConverter;
         }
 
         public async Task<string> DivisionBy2(string number)
@@ -20,7 +24,7 @@ namespace CollatzConjecture.Math
                 throw new NotNumericException(number);
             number = number.Replace(" ", "");
             string result = string.Empty;
-            var numbers = new DivisionConverter().ConvertToLongNumber(number, 8);
+            var numbers = _divisionConverter.ConvertToLongNumber(number);
             NumericPart? item = numbers.GetFirst();
             while (item != null)
             {
@@ -32,11 +36,10 @@ namespace CollatzConjecture.Math
 
         public async Task<string> Multiplication(string number, int multiplier, bool isSubtraction)
         {
-            int partLength = 8;
             if (!number.IsNumeric())
                 throw new NotNumericException(number);
             string result = string.Empty;
-            var longValue = new MultiplicationConverter().ConvertToLongNumber(number, partLength);
+            var longValue = _multiplicationConverter.ConvertToLongNumber(number);
             var item = longValue.GetLast();
             CalculationResult prevResult = null;
             while (item != null)

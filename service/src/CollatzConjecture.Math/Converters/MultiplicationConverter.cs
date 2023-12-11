@@ -8,4 +8,8 @@ public class MultiplicationConverter : LongNumberConverter
     {
         return number;
     }
+
+    public MultiplicationConverter(IResolverConfiguration configuration) : base(configuration)
+    {
+    }
 }
