@@ -15,7 +15,7 @@ builder.Services.AddSingleton<DivisionConverter>();
 builder.Services.AddSingleton<MultiplicationConverter>();
 builder.Services.AddSingleton<ICollatzMathService, CollatzMathService>();
 
-builder.Services.AddSingleton<ICollatzConjectureResolver, CollatzConjectureResolver>();
+builder.Services.AddSingleton<ICollatzConjectureResolver, BigIntegerCollatzConjectureResolver>();
 builder.Services.AddSingleton<CollatzCalc>();
 builder.Services.AddTransient<IResultProcessor, ResultProcessor>();
 builder.Services.AddTransient<IFileResultProcessor, FileResultProcessor>();
