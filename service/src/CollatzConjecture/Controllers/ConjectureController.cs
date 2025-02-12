@@ -49,7 +49,7 @@ namespace CollatzConjecture.Controllers
 
 
         [HttpGet, Route("random")]
-        public string RandomIntager([FromQuery] int count)
+        public string RandomInteger([FromQuery] int count)
         {
             string value = string.Empty;
             for (int i = 0; i < count; i++)
